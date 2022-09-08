@@ -1,63 +1,58 @@
-// Primitive type
-type StudentName = string;
-type StudentAge = number;
-type IsTopStudent = boolean;
-
-// Object type
-type Student = {
-    readonly id: number;
-    name: string;
-    age?: number; // optional
+// Default function return type
+function sayHello() {
+    console.log('Hi Easy Frontend');
     }
+    // ts: function sayHello(): void
     
-    interface Student2 {
-    readonly id: number;
-    name: string;
-    age?: number; // optional
+    function sum(a: number, b: number) {
+    return a + b;
     }
-    
-    const studentA: Student = {
-    id: 1,
-    name: 'Alice',
-    }
-    const studentB: Student = {
-    id: 2,
-    name: 'Bob',
-    age: 18,
-    }
+    // ts: function sum(a: number, b: number): number
 
-//Intersection type
-interface BusinessPartner {
-    name: string;
-    credit: number;
+    function sum(a: number, b: number): number {
+        return a + b;
+        }
+        // ts: function sum(a: number, b: number): number
+        
+        function sum(a: number, b: number): number {
+        return a + b.toString();
+        }
+        // ts error: Type 'string' is not assignable to type 'number'
+// Optional and default parameter
+// optional parameter
+// this is how ts understand
+// function getLength(numberList?: number[] | undefined): number
+function getLength(numberList?: number[]) {
+    return Array.isArray(numberList) ? numberList.length : 0;
     }
-    interface Identity {
-    id: number;
-    name: string;
+// default parameter
+// this is how ts understand
+// function getLength(numberList?: number[]): number
+    function getLength(numberList: number[] = []) {
+    return Array.isArray(numberList) ? numberList.length : 0;
     }
-    interface Contact {
-    email: string;
-    phone: string;
+// ts error: Parameter cannot have question mark and initializer.ts(1015)
+    function getLength(numberList?: number[] = []) {
+    return Array.isArray(numberList) ? numberList.length : 0;
     }
-    type Employee3 = Identity & Contact;
-    type Customer = BusinessPartner & Contact;
+// function noop(): void
+function noop() {
+    return;
+    }
+// function noop(): void
+    function  
+type NewType = number & string; // never
 
-// interface way
-interface Employee2 extends Identity, Contact {}
-interface Customer1 extends BusinessPartner, Contact {}
+function fail(msg: string): never {
+throw new Error(msg);
+}
 
-type Customer2 = BusinessPartner & Contact;
-let c: Customer = {
-name: 'ABC Inc.',
-credit: 1000000,
-email: 'sales@abcinc.com',
-phone: '(408)-897-5735'
-};
-type Employee = Identity & BusinessPartner & Contact;
-let e: Employee = {
-id: 100,
-name: 'John Doe',
-email: 'john.doe@example.com',
-phone: '(408)-897-5684',
-credit: 1000
-};
+function fn(x: string | number) {
+if (typeof x === "string") {
+// do something
+} else if (typeof x === "number") {
+// do something else
+} else {
+x; // has type 'never'!
+}
+}    
