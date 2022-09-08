@@ -1,58 +1,54 @@
-// Default function return type
-function sayHello() {
-    console.log('Hi Easy Frontend');
+export function isPositive(n: number){
+    return  n >= 0
+}
+try {
+    Promise.reject(new Error('Super'))
+} catch (error){
+    if(error instanceof Error){
+        console.log(error.message)
     }
-    // ts: function sayHello(): void
-    
-    function sum(a: number, b: number) {
-    return a + b;
-    }
-    // ts: function sum(a: number, b: number): number
-
-    function sum(a: number, b: number): number {
-        return a + b;
-        }
-        // ts: function sum(a: number, b: number): number
-        
-        function sum(a: number, b: number): number {
-        return a + b.toString();
-        }
-        // ts error: Type 'string' is not assignable to type 'number'
-// Optional and default parameter
-// optional parameter
-// this is how ts understand
-// function getLength(numberList?: number[] | undefined): number
-function getLength(numberList?: number[]) {
-    return Array.isArray(numberList) ? numberList.length : 0;
-    }
-// default parameter
-// this is how ts understand
-// function getLength(numberList?: number[]): number
-    function getLength(numberList: number[] = []) {
-    return Array.isArray(numberList) ? numberList.length : 0;
-    }
-// ts error: Parameter cannot have question mark and initializer.ts(1015)
-    function getLength(numberList?: number[] = []) {
-    return Array.isArray(numberList) ? numberList.length : 0;
-    }
-// function noop(): void
-function noop() {
-    return;
-    }
-// function noop(): void
-    function  
-type NewType = number & string; // never
-
-function fail(msg: string): never {
-throw new Error(msg);
 }
 
-function fn(x: string | number) {
-if (typeof x === "string") {
-// do something
-} else if (typeof x === "number") {
-// do something else
-} else {
-x; // has type 'never'!
+interface Student {
+    readonly id: number;
+    name: string;
+    age?: number; // optional
+    }
+
+const studentB: Student = {
+    id: 1,
+    name: 'Alice Margatroid',
+    age: 18,
 }
-}    
+
+// Union type
+let x: number | string = 1;
+x = 'super'; // works
+x = 123; // works
+// x = false; // ts error: Type 'boolean' is not assignable to type 'string |number'
+
+// Intersection type
+interface BusinessPartner {
+    name: string;
+    credit: number;
+}
+interface Identity {
+    id: number;
+    name: string;
+}
+interface Contact {
+    email: string;
+    phone: string;
+}
+type Employee = Identity & Contact;
+type Customer = BusinessPartner & Contact;
+// interface way
+// interface empLoyee extends Identity, Contact {}
+// inerface Customer extends BusinessPartner, Contact {}
+
+let c: Customer = {
+name: 'ABC Inc.',
+credit: 1000000,
+email: 'sales@abcinc.com',
+phone: '(408)-897-5735'
+};
